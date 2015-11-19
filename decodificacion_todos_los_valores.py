@@ -215,7 +215,7 @@ def update():
                 elif elemento[2] == 'data_32':
                     dato_conv = data_32(dato_inv)
                 else:
-                    dato = 'aun no es evaluado'
+                    dato_conv = 'aun no es evaluado'
                 print (elemento[0],'= ', dato_conv)
                 inicio_datos = inicio_datos+ elemento[1]
             inicio_datos = inicio_datos + 12
