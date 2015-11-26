@@ -79,14 +79,14 @@ def update():
             curve1.setData(historicos_temperatura_PCB)
             curve2.setData(historicos_temperatura_CELDA)
 
-        '''if identificador == filtro_wavescultor:
+        if identificador == filtro_wavescultor:
             voltaje = hexdata[-16:-8]
             voltaje = voltaje[6:8] + voltaje[4:6] + voltaje[2:4] + voltaje[0:2]
             float_voltaje = struct.unpack('!f', codecs.decode(voltaje,'hex'))[0]
             print(float_voltaje)
             
             historico_voltaje_bus_dc.append(float_voltaje)
-            curve3.setData(historico_voltaje_bus_dc)'''
+            curve3.setData(historico_voltaje_bus_dc)
 
     except KeyboardInterrupt:
         sock.close()

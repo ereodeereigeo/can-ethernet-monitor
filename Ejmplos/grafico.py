@@ -20,7 +20,7 @@ sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
 
 filtro_temperatura = b'601'
 filtro_volt = b'602'
-filtro_wavescultor = b'402'
+filtro_wavescultor = b'442'
 
 # QtGui.QApplication.setGraphicsSystem('raster')
 app = QtGui.QApplication([])
@@ -79,11 +79,10 @@ def update():
             curve2.setData(historicos_temperatura_CELDA)
 
         elif identificador == filtro_wavescultor:
-            if len(hexdata) == 60:
-                temperatura = hexdata[-16:-8]
-                temperatura = temperatura[6:8] + temperatura[4:6] + temperatura[2:4] + temperatura[0:2]
-                historico_voltaje_bus_dc.append(struct.unpack('!f', temperatura.decode('hex'))[0])
-                curve3.setData(historico_voltaje_bus_dc)
+            temperatura = hexdata[-16:-8]
+            temperatura = temperatura[6:8] + temperatura[4:6] + temperatura[2:4] + temperatura[0:2]
+            historico_voltaje_bus_dc.append(struct.unpack('!f', codecs.decode(temperatura))[0])
+            curve3.setData(historico_voltaje_bus_dc)
 
     except KeyboardInterrupt:
         sock.close()
