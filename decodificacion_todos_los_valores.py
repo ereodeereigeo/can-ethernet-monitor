@@ -28,9 +28,9 @@ app = QtGui.QApplication([])
 # mw = QtGui.QMainWindow()
 # mw.resize(800,800)
 pg.setConfigOption('background', 'w')
-win = pg.GraphicsWindow(title="Basic plotting examples")
+win = pg.GraphicsWindow(title="Graficos Velocidad y Voltaje")
 win.resize(1280,768)
-win.setWindowTitle('pyqtgraph example: Plotting')
+win.setWindowTitle('Velocidad y voltaje')
 
 # Enable antialiasing for prettier plots
 pg.setConfigOptions(antialias=True)
@@ -46,13 +46,10 @@ p2.setXRange(0, 600)
 p2.setYRange(0, 200)
 p2.addLegend()
 
-curve1 = p1.plot(pen='b', name='TEMPERATURA PCB')
-curve2 = p1.plot(pen='r', name='TEMPERATURA CELDA')
-curve3 = p2.plot(pen='r', name='VOLTAJE BUS')
+curve1 = p1.plot(pen='b', name='Velocidad Bus')
+#curve2 = p1.plot(pen='r', name='TEMPERATURA CELDA')
+curve3 = p2.plot(pen='r', name='Voltaje Bus')
 
-historicos_temperatura_PCB = deque([], maxlen=100)
-historicos_temperatura_CELDA = deque([], maxlen=100)
-historico_voltaje_bus_dc = deque([], maxlen=100)
 
 #añadir diccionario de identificadores
 dicc_variables = {b'400': [['tritium_id_m1', 8, 'uint32'], ['ident_m1', 8, 'uint32']],
@@ -354,39 +351,48 @@ diccionario_nuevo = {'1.9v_supply_m1': [],
 # Dataframe
 dataframe_timestamp = pd.DataFrame(columns=diccionario_nuevo.keys())
 dataframe_global = pd.DataFrame(columns=diccionario_nuevo.keys())
+
 # funciones de conversión de datos
-  
+
 def uint32(dato_inv):
-    return (struct.unpack('!I', codecs.decode(dato_inv, 'hex'))[0])
+    return struct.unpack('!I', codecs.decode(dato_inv, 'hex'))[0]
+
 
 def uint8(dato_inv):
-    return (struct.unpack('!B', codecs.decode(dato_inv, 'hex'))[0])
+    return struct.unpack('!B', codecs.decode(dato_inv, 'hex'))[0]
+
 
 def uint16(dato_inv):
-    return (struct.unpack('!H', codecs.decode(dato_inv, 'hex'))[0])
+    return struct.unpack('!H', codecs.decode(dato_inv, 'hex'))[0]
+
 
 def float32(dato_inv):
-    return (struct.unpack('!f', codecs.decode(dato_inv, 'hex'))[0])
-    
+    return struct.unpack('!f', codecs.decode(dato_inv, 'hex'))[0]
+
+
 def int8(dato_inv):
-    return (struct.unpack('!b', codecs.decode(dato_inv, 'hex'))[0])
-    
+    return struct.unpack('!b', codecs.decode(dato_inv, 'hex'))[0]
+
+
 def int32(dato_inv):
-    return (struct.unpack('!i', codecs.decode(dato_inv, 'hex'))[0])
-    
+    return struct.unpack('!i', codecs.decode(dato_inv, 'hex'))[0]
+
+
 def int16(dato_inv):
-    return (struct.unpack('!h', codecs.decode(dato_inv, 'hex'))[0])
-    
+    return struct.unpack('!h', codecs.decode(dato_inv, 'hex'))[0]
+
+
 def data_u32(dato_inv):
-    return (struct.unpack('!L', codecs.decode(dato_inv, 'hex'))[0])
-    
+    return struct.unpack('!L', codecs.decode(dato_inv, 'hex'))[0]
+
+
 def data_32(dato_inv):
     return (struct.unpack('!l', codecs.decode(dato_inv, 'hex'))[0])
 #PuertoSerie = serial.Serial('com4', 115200)
 previous = time.time()
 diccionario_final = {}
 def update():
-    global diccionario_final,tiempo_actual,dataframe_global,dataframe_timestamp,diccionario_nuevo,previous,curve1, curve2, curve3, historicos_temperatura_CELDA, historicos_temperatura_PCB, historico_voltaje_bus_dc, p1, p2
+    global diccionario_final,tiempo_actual,dataframe_global,dataframe_timestamp,diccionario_nuevo,previous,curve1, curve3, historicos_temperatura_CELDA, historicos_temperatura_PCB, historico_voltaje_bus_dc, p1, p2
     try:
             
         #crear dataframe
@@ -397,18 +403,18 @@ def update():
         data, address = sock.recvfrom(1024)
         #data = PuertoSerie.readline()
         hexdata = binascii.hexlify(data)
-        listaId = []
+        listaid = []
         inicio = 37
         fin = 40
         ident = '0'
         #print (hexdata)
         while len(ident)>0:
             ident = hexdata[inicio:fin]                
-            listaId.append(ident)
+            listaid.append(ident)
             inicio = inicio + 28
             fin = fin + 28
         inicio_datos = 44
-        for identificador in listaId:
+        for identificador in listaid:
             try:
                 for elemento in dicc_variables[identificador]:
                     fin_datos = inicio_datos + elemento[1]
@@ -457,9 +463,9 @@ def update():
                         diccionario_final[elemento] = [float('nan')]
                         diccionario_nuevo[elemento] = []
             
-
             dataframe_timestamp = pd.DataFrame(diccionario_final, index =[datetime.datetime.now().replace(microsecond = 0)] )                
-            '''diccionario_nuevo = {'1.9v_supply_m1': [],
+            print(dataframe_timestamp)
+            diccionario_nuevo = {'1.9v_supply_m1': [],
                                  '1.9v_supply_m2': [],
                                  '12v_contactor': [],
                                  '15v_supply_m1': [],
@@ -610,7 +616,7 @@ def update():
                                  'velocity_rpm_m1': [],
                                  'velocity_rpm_m2': [],
                                  'vq_m1': [],
-                                 'vq_m2': []}'''
+                                 'vq_m2': []}
             dataframe_global = dataframe_global.append(dataframe_timestamp)
             curve1.setData(dataframe_global['velocity_rpm_m1'])
             #curve2.setData(dataframe_global[])
@@ -627,8 +633,9 @@ timer = QtCore.QTimer()
 timer.timeout.connect(update)
 timer.start(10)
 
-## Start Qt event loop unless running in interactive mode or using pyside.
+# Start Qt event loop unless running in interactive mode or using pyside.
 if __name__ == '__main__':
     import sys
+
     if (sys.flags.interactive != 1) or not hasattr(QtCore, 'PYQT_VERSION'):
         QtGui.QApplication.instance().exec_()
