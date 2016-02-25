@@ -17,6 +17,10 @@ class EthernetThread(QtCore.QThread):
             assert isinstance(value, int), 'el puerto debe ser un valor entero'
             self._socket_configuration['port'] = value
 
+    def __repr__(self):
+        return 'Socket Thread conectado a: ip: {}, puerto: {}'.format(self._socket_configuration['ip'],
+                                                                      self._socket_configuration['port'])
+
     def __getitem__(self, item):
         return self._socket_configuration[item]
 
