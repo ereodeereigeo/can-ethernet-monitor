@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/seba/PycharmProjects/can-ethernet-monitor/ui/disenos/designer/mainwindow.ui'
+# Form implementation generated from reading ui file 'C:\Users\Sebastian\PycharmProjects\can-ethernet-monitor\ui\disenos\designer\mainwindow.ui'
 #
-# Created: Thu Feb 25 12:27:10 2016
+# Created: Thu Feb 25 12:57:24 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -10,14 +10,9 @@
 from PySide import QtCore, QtGui
 
 class Ui_MainWindow(object):
-
-    def __int__(self):
-        pass
-
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(870, 682)
-        print(MainWindow)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtGui.QGridLayout(self.centralwidget)

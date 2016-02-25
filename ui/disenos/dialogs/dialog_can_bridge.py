@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/seba/PycharmProjects/can-ethernet-monitor/ui/disenos/designer/dialog_can_bridge.ui'
+# Form implementation generated from reading ui file 'C:\Users\Sebastian\PycharmProjects\can-ethernet-monitor\ui\disenos\designer\dialog_can_bridge.ui'
 #
-# Created: Thu Feb 25 12:27:10 2016
+# Created: Thu Feb 25 12:57:23 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
