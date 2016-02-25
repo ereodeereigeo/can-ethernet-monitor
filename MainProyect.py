@@ -1,7 +1,7 @@
-
 from ui.disenos.mainwindow import mainwindow
 from PySide import QtGui
 from PySide import QtCore
+
 
 class MainProyect(QtGui.QMainWindow, mainwindow.Ui_MainWindow):
 
