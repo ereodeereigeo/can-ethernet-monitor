@@ -22,11 +22,14 @@ for dialogo in lista_dialogs:
     path_salida = os.path.join(PATH_DIALOGS, os.path.splitext(os.path.basename(dialogo))[0] + '.py')
     cmd = comando.format(path_salida, dialogo)
     print(cmd)
+    os.system(cmd)
+
 
 for window in mainwindow:
     path_salida = os.path.join(PATH_MAIN, os.path.splitext(os.path.basename(window))[0] + '.py')
     cmd = comando.format(path_salida, window)
     print(cmd)
+    os.system(cmd)
 
 if hasattr(sys, 'real_prefix'):
     print('en ambiente virtual')
