@@ -13,7 +13,7 @@ except ImportError:
 PATH = os.path.dirname(os.path.abspath(__file__))
 PATH_DESIGNER = os.path.join(PATH, 'designer')
 PATH_DIALOGS = os.path.join(PATH, 'dialogs')
-PATH_MAIN = os.path.join(PATH, 'Mainwindow')
+PATH_MAIN = os.path.join(PATH, 'mainwindow')
 
 lista_dialogs = glob.glob(os.path.join(PATH_DESIGNER, 'dialog*'))
 mainwindow = glob.glob(os.path.join(PATH_DESIGNER, 'main*'))
@@ -31,8 +31,6 @@ for window in mainwindow:
     print(cmd)
     os.system(cmd)
 
-if hasattr(sys, 'real_prefix'):
-    print('en ambiente virtual')
 
 if __name__ == '__main__':
     pass

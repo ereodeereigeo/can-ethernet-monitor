@@ -10,9 +10,14 @@
 from PySide import QtCore, QtGui
 
 class Ui_MainWindow(object):
+
+    def __int__(self):
+        pass
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(870, 682)
+        print(MainWindow)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtGui.QGridLayout(self.centralwidget)
