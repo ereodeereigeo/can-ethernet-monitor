@@ -1,4 +1,4 @@
-import serial
+import ui.threads.Serial
 from PySide import QtCore
 
 
