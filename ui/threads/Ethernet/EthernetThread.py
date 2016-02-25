@@ -6,6 +6,7 @@ class EthernetThread(QtCore.QThread):
 
     def __init__(self):
         super(EthernetThread, self).__init__()
+        print('ethernet thread')
         self._socket_configuration = dict(port=1, ip=())
 
     def __setitem__(self, key, value):
